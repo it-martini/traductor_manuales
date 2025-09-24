@@ -46,6 +46,7 @@ output/
 
 # Sensitive config files
 scripts/config.py
+!scripts/config.py.example
 
 # Temporary files
 temp/
