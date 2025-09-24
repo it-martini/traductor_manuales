@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 # API Configuration
-ANTHROPIC_API_KEY = "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"
+ANTHROPIC_API_KEY = os.getenv('CLAUDE_API_KEY')
 MODEL = "claude-3-haiku-20240307"
 
 # Rate limiting

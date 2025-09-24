@@ -41,13 +41,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Cache
-cache/
-*.cache
-.cache/
-
 # Output files (these can be regenerated)
 output/
+
+# Sensitive config files
+scripts/config.py
 
 # Temporary files
 temp/
