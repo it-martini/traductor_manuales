@@ -136,6 +136,7 @@ class MainMenu:
         print("│ [3] Configuración del sistema                │")
         print("│ [4] Limpiar caché de traducciones            │")
         print("│ [5] Ver logs de operaciones                  │")
+        print("│ [6] Encender/Apagar webserver                │")
         print("│                                              │")
         print("│ [0] Salir                                    │")
         print("└" + "─" * 50 + "┘")
@@ -208,7 +209,7 @@ class MainMenu:
         """Ejecuta el menú principal"""
         while True:
             self.show_main_menu()
-            choice = self.get_user_choice("Selección", range(0, 6))
+            choice = self.get_user_choice("Selección", range(0, 7))
 
             if choice == 0:
                 print("\n👋 ¡Hasta luego!")
@@ -223,6 +224,8 @@ class MainMenu:
                 self.clear_cache()
             elif choice == 5:
                 self.show_logs()
+            elif choice == 6:
+                self.webserver_menu()
 
     def select_manual_menu(self):
         """Menú de selección de manual"""
@@ -943,6 +946,218 @@ class MainMenu:
 
         except Exception as e:
             print(f"❌ Error eliminando caché: {e}")
+
+    def webserver_menu(self):
+        """Menú para manejar el webserver"""
+        try:
+            from webserver import get_webserver_status, start_webserver, stop_webserver, is_webserver_running
+        except ImportError:
+            print("❌ Error: No se pudo importar el módulo webserver")
+            input("\nPresiona Enter para continuar...")
+            return
+
+        while True:
+            print("\n🌐 GESTIÓN DEL WEBSERVER")
+            print("═" * 40)
+
+            # Obtener estado actual
+            status = get_webserver_status()
+
+            if status['running']:
+                print(f"✅ Estado: ACTIVO")
+                print(f"🌍 URL: {status['url']}")
+                print(f"📁 Sirviendo: {status['directory']}")
+            else:
+                print("🔴 Estado: INACTIVO")
+                print(f"📁 Directorio configurado: {status['directory']}")
+
+            print("\n🔧 OPCIONES:")
+            print("┌" + "─" * 38 + "┐")
+
+            if status['running']:
+                print("│ [1] Abrir en navegador              │")
+                print("│ [2] Mostrar información detallada   │")
+                print("│ [3] 🔴 Detener webserver            │")
+            else:
+                print("│ [1] 🟢 Iniciar webserver            │")
+                print("│ [2] Configurar puerto               │")
+
+            print("│                                     │")
+            print("│ [0] Volver al menú principal        │")
+            print("└" + "─" * 38 + "┘")
+            print()
+
+            if status['running']:
+                choice = self.get_user_choice("Selección", range(0, 4))
+            else:
+                choice = self.get_user_choice("Selección", range(0, 3))
+
+            if choice == 0:
+                break
+            elif choice == 1:
+                if status['running']:
+                    self._open_webserver_in_browser(status['url'])
+                else:
+                    self._start_webserver()
+            elif choice == 2:
+                if status['running']:
+                    self._show_webserver_details()
+                else:
+                    self._configure_webserver_port()
+            elif choice == 3 and status['running']:
+                self._stop_webserver()
+
+    def _start_webserver(self):
+        """Inicia el webserver"""
+        print("\n🚀 INICIAR WEBSERVER")
+        print("─" * 20)
+
+        try:
+            from webserver import start_webserver
+
+            # Verificar que existe el directorio de salida
+            if not OUTPUT_DIR.exists():
+                print(f"⚠️ El directorio de salida no existe: {OUTPUT_DIR}")
+                print("💡 Traduce al menos un manual antes de usar el webserver")
+                input("\nPresiona Enter para continuar...")
+                return
+
+            print("⏳ Iniciando servidor web...")
+            success = start_webserver()
+
+            if success:
+                print("\n🎉 ¡Webserver iniciado exitosamente!")
+                print("🌍 Tu navegador puede acceder a los manuales traducidos")
+
+                # Preguntar si abrir en navegador
+                response = input("\n¿Abrir en el navegador? (S/n): ").lower()
+                if response in ['', 's', 'si', 'y', 'yes']:
+                    self._open_webserver_in_browser("http://localhost:8080")
+            else:
+                print("❌ No se pudo iniciar el webserver")
+                print("💡 Verifica que el puerto 8080 esté libre")
+
+        except Exception as e:
+            print(f"❌ Error inesperado: {e}")
+
+        input("\nPresiona Enter para continuar...")
+
+    def _stop_webserver(self):
+        """Detiene el webserver"""
+        print("\n🛑 DETENER WEBSERVER")
+        print("─" * 20)
+
+        confirm = input("¿Estás seguro de detener el servidor web? (s/N): ").lower()
+        if confirm not in ['s', 'si', 'y', 'yes']:
+            print("❌ Operación cancelada")
+            input("\nPresiona Enter para continuar...")
+            return
+
+        try:
+            from webserver import stop_webserver
+
+            print("⏳ Deteniendo servidor web...")
+            success = stop_webserver()
+
+            if success:
+                print("✅ Webserver detenido exitosamente")
+            else:
+                print("⚠️ El webserver ya estaba detenido o hubo un problema")
+
+        except Exception as e:
+            print(f"❌ Error inesperado: {e}")
+
+        input("\nPresiona Enter para continuar...")
+
+    def _show_webserver_details(self):
+        """Muestra información detallada del webserver"""
+        print("\n📊 INFORMACIÓN DETALLADA DEL WEBSERVER")
+        print("─" * 45)
+
+        try:
+            from webserver import get_webserver_status
+            import os
+
+            status = get_webserver_status()
+
+            print(f"🌍 URL: {status['url']}")
+            print(f"🖥️ Host: {status['host']}")
+            print(f"🔌 Puerto: {status['port']}")
+            print(f"📁 Directorio: {status['directory']}")
+            print(f"✅ Estado: {'ACTIVO' if status['running'] else 'INACTIVO'}")
+
+            if status['running']:
+                print(f"🔗 Enlaces directos:")
+                print(f"   • Página principal: {status['url']}/")
+                print(f"   • Navegador de archivos: {status['url']}")
+
+            # Información del directorio
+            if OUTPUT_DIR.exists():
+                total_size = sum(f.stat().st_size for f in OUTPUT_DIR.rglob('*') if f.is_file()) / (1024*1024)
+                file_count = len(list(OUTPUT_DIR.rglob('*.*')))
+                lang_dirs = len([d for d in OUTPUT_DIR.iterdir() if d.is_dir()])
+
+                print(f"\n📊 Estadísticas del directorio:")
+                print(f"   • Archivos totales: {file_count}")
+                print(f"   • Directorios de idiomas: {lang_dirs}")
+                print(f"   • Tamaño total: {total_size:.1f} MB")
+
+        except Exception as e:
+            print(f"❌ Error obteniendo información: {e}")
+
+        input("\nPresiona Enter para continuar...")
+
+    def _configure_webserver_port(self):
+        """Configura el puerto del webserver"""
+        print("\n⚙️ CONFIGURAR PUERTO")
+        print("─" * 20)
+
+        try:
+            current_port = 8080
+            print(f"Puerto actual: {current_port}")
+            print("Puertos comunes: 8080, 8000, 3000, 5000")
+
+            while True:
+                try:
+                    new_port = input(f"\nNuevo puerto (Enter para {current_port}): ").strip()
+
+                    if not new_port:
+                        new_port = current_port
+                        break
+
+                    new_port = int(new_port)
+
+                    if new_port < 1024:
+                        print("⚠️ Puertos menores a 1024 requieren permisos de administrador")
+                    elif new_port > 65535:
+                        print("❌ Puerto inválido (máximo 65535)")
+                        continue
+
+                    break
+
+                except ValueError:
+                    print("❌ Por favor ingresa un número válido")
+
+            print(f"✅ Puerto configurado: {new_port}")
+            print("💡 El puerto se aplicará cuando inicies el webserver")
+
+        except Exception as e:
+            print(f"❌ Error: {e}")
+
+        input("\nPresiona Enter para continuar...")
+
+    def _open_webserver_in_browser(self, url):
+        """Abre el webserver en el navegador"""
+        try:
+            import webbrowser
+            print(f"🌍 Abriendo {url} en el navegador...")
+            webbrowser.open(url)
+            print("✅ Navegador abierto (si está disponible)")
+        except Exception as e:
+            print(f"⚠️ No se pudo abrir automáticamente el navegador: {e}")
+            print(f"🔗 Puedes abrir manualmente: {url}")
+
+        input("\nPresiona Enter para continuar...")
 
 if __name__ == "__main__":
     try:
