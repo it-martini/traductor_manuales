@@ -636,7 +636,7 @@ class MainMenu:
         print("\n🧹 LIMPIAR CACHÉ")
         print("┌─────────────────────────────────────────┐")
         print("│ [1] Limpiar solo traducciones corruptas │")
-        print("│ [2] Eliminar TODO el caché              │")
+        print("│ [2] ⚠️  ELIMINAR TODO EL CACHÉ ⚠️        │")
         print("│ [0] Cancelar                            │")
         print("└─────────────────────────────────────────┘")
 
@@ -663,16 +663,8 @@ class MainMenu:
                 print("ℹ️ No hay caché para limpiar")
 
         elif choice == 2:
-            # Eliminar todo el caché
-            confirm = input("¿Eliminar TODO el caché? (s/N): ").lower().strip()
-            if confirm == 's':
-                if CACHE_FILE.exists():
-                    CACHE_FILE.unlink()
-                    print("✅ Caché completamente eliminado")
-                else:
-                    print("ℹ️ No hay caché para limpiar")
-            else:
-                print("❌ Operación cancelada")
+            # ELIMINAR TODO EL CACHÉ - SUPER CONFIRMACIÓN
+            self._delete_entire_cache_with_super_confirmation()
 
         elif choice == 0:
             print("❌ Operación cancelada")
@@ -869,6 +861,88 @@ class MainMenu:
 
         except Exception as e:
             print(f"❌ Error inesperado: {e}")
+
+    def _delete_entire_cache_with_super_confirmation(self):
+        """Elimina todo el caché con múltiples confirmaciones y avisos de costo"""
+
+        # Verificar si existe el caché
+        if not CACHE_FILE.exists():
+            print("ℹ️ No hay caché para limpiar")
+            return
+
+        # Analizar el caché actual
+        try:
+            with open(CACHE_FILE, 'r', encoding='utf-8') as f:
+                cache_data = json.load(f)
+
+            cache_count = len(cache_data)
+            cache_size_mb = CACHE_FILE.stat().st_size / (1024 * 1024)
+
+            # Estimar costo (aproximado: $0.01 por traducción)
+            estimated_cost = cache_count * 0.01
+
+        except Exception as e:
+            print(f"⚠️ Error analizando caché: {e}")
+            cache_count = "desconocido"
+            cache_size_mb = 0
+            estimated_cost = "desconocido"
+
+        # PRIMERA ADVERTENCIA - IMPACTO ECONÓMICO
+        print("\n" + "🚨" * 20)
+        print("   ⚠️  ADVERTENCIA CRÍTICA - IMPACTO ECONÓMICO ⚠️")
+        print("🚨" * 20)
+        print(f"📊 Traducciones en caché: {cache_count}")
+        print(f"📏 Tamaño del archivo: {cache_size_mb:.1f} MB")
+        print(f"💰 Valor estimado del caché: ~${estimated_cost:.2f} USD" if isinstance(estimated_cost, float) else f"💰 Valor estimado: {estimated_cost}")
+        print("\n🔥 ELIMINAR EL CACHÉ SIGNIFICA:")
+        print("   • Perder TODAS las traducciones guardadas")
+        print("   • Tener que re-traducir todo desde cero")
+        print("   • Pagar nuevamente los costos de API")
+        print("   • Tiempo adicional para regenerar traducciones")
+
+        confirm1 = input(f"\n¿Estás SEGURO de eliminar {cache_count} traducciones? (escribir 'SI' para continuar): ").strip()
+        if confirm1 != 'SI':
+            print("✅ Operación cancelada - Caché preservado")
+            return
+
+        # SEGUNDA CONFIRMACIÓN - MÁS ESPECÍFICA
+        print("\n" + "⚠️" * 15)
+        print("   SEGUNDA CONFIRMACIÓN REQUERIDA")
+        print("⚠️" * 15)
+        print("🔍 Esta acción es IRREVERSIBLE")
+        print("💸 Necesitarás pagar nuevamente por re-traducir todo")
+        print("⏱️ Tomará horas regenerar todas las traducciones")
+
+        confirm2 = input(f"\n¿REALMENTE quieres eliminar el caché de {cache_size_mb:.1f}MB? (escribir 'ELIMINAR' para confirmar): ").strip()
+        if confirm2 != 'ELIMINAR':
+            print("✅ Operación cancelada - Caché preservado")
+            return
+
+        # TERCERA CONFIRMACIÓN - ÚLTIMA OPORTUNIDAD
+        print("\n" + "🛑" * 10)
+        print("   ÚLTIMA OPORTUNIDAD PARA CANCELAR")
+        print("🛑" * 10)
+        print("⚡ En 3 segundos se eliminará PERMANENTEMENTE el caché")
+        print("⚡ Presiona Ctrl+C AHORA para cancelar")
+
+        try:
+            for i in range(3, 0, -1):
+                print(f"   Eliminando en {i}...")
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print("\n✅ Operación cancelada por el usuario - Caché preservado")
+            return
+
+        # ELIMINACIÓN FINAL
+        try:
+            CACHE_FILE.unlink()
+            print("\n💥 CACHÉ COMPLETAMENTE ELIMINADO")
+            print(f"📊 {cache_count} traducciones eliminadas")
+            print(f"💰 ~${estimated_cost:.2f} USD en traducciones perdidas" if isinstance(estimated_cost, float) else f"💰 Valor perdido: {estimated_cost}")
+            print("⚠️ Necesitarás re-traducir todo desde cero")
+
+        except Exception as e:
+            print(f"❌ Error eliminando caché: {e}")
 
 if __name__ == "__main__":
     try:
