@@ -23,10 +23,6 @@ class FixedTableHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         """Maneja peticiones GET"""
         try:
-            # Cambiar al directorio output
-            original_dir = os.getcwd()
-            os.chdir(OUTPUT_DIR)
-
             path = unquote(self.path)
 
             # Si es la raíz, mostrar tabla
@@ -39,11 +35,6 @@ class FixedTableHandler(BaseHTTPRequestHandler):
         except Exception as e:
             print(f"Error en do_GET: {e}")
             self.send_error(500, f"Error interno: {e}")
-        finally:
-            try:
-                os.chdir(original_dir)
-            except:
-                pass
 
     def send_table_page(self):
         """Envía la página con tabla"""
@@ -63,7 +54,14 @@ class FixedTableHandler(BaseHTTPRequestHandler):
             if path.startswith('/'):
                 path = path[1:]
 
-            file_path = Path(OUTPUT_DIR) / path
+            # Determinar si es un archivo del directorio original o output
+            if path.startswith('../original/'):
+                # Archivo del español original
+                relative_path = path.replace('../original/', '')
+                file_path = OUTPUT_DIR.parent / 'original' / relative_path
+            else:
+                # Archivo del output normal
+                file_path = Path(OUTPUT_DIR) / path
 
             if file_path.is_file():
                 # Determinar tipo MIME
@@ -379,10 +377,35 @@ class FixedTableHandler(BaseHTTPRequestHandler):
                             # Español - buscar en original
                             base_path = OUTPUT_DIR.parent / 'original' / f"{manual_key}_es"
                             if base_path.exists():
-                                html_files = list(base_path.glob('*.html'))
-                                if html_files:
-                                    rel_path = os.path.relpath(html_files[0], OUTPUT_DIR)
-                                    files['html'] = rel_path.replace('\\', '/')
+                                # HTML - buscar en subdirectorio html
+                                html_dir = base_path / 'html'
+                                if html_dir.exists():
+                                    # Preferir index.html si existe
+                                    index_file = html_dir / 'index.html'
+                                    if index_file.exists():
+                                        rel_path = os.path.relpath(index_file, OUTPUT_DIR)
+                                        files['html'] = rel_path.replace('\\', '/')
+                                    else:
+                                        # Usar cualquier archivo HTML
+                                        html_files = list(html_dir.glob('*.html'))
+                                        if html_files:
+                                            rel_path = os.path.relpath(html_files[0], OUTPUT_DIR)
+                                            files['html'] = rel_path.replace('\\', '/')
+
+                                # DOCX - buscar en subdirectorio pdf
+                                pdf_dir = base_path / 'pdf'
+                                if pdf_dir.exists():
+                                    docx_files = list(pdf_dir.glob('*.docx'))
+                                    if docx_files:
+                                        rel_path = os.path.relpath(docx_files[0], OUTPUT_DIR)
+                                        files['docx'] = rel_path.replace('\\', '/')
+
+                                # PDF - también en subdirectorio pdf
+                                if pdf_dir.exists():
+                                    pdf_files = list(pdf_dir.glob('*.pdf'))
+                                    if pdf_files:
+                                        rel_path = os.path.relpath(pdf_files[0], OUTPUT_DIR)
+                                        files['pdf'] = rel_path.replace('\\', '/')
                         else:
                             # Otros idiomas
                             lang_info = LANGUAGES.get(lang_code, {})
