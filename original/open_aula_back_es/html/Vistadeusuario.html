@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="generator" content="HelpNDoc Professional Edition 10.0.0.105">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="favicon.ico"/>
+
+  <title>Vista de usuario </title>
+  <meta name="description" content="Manual de administraci&oacute;n" /> 
+  <meta name="keywords" content="SCORM,estado,calificaciones,calificaci&oacute;n,perfil,permiso,gu&iacute;a,curso,previsualizar,contenido,secciones,alumno,alumnos,material,bot&oacute;n,encuesta,excel,autoevaluaciones,configuraci&oacute;n,distancia,relacionado,obligatorio,ver propio,cursa,califica,correlatividad,listado,accede,Recursos,LTI">
+
+
+
+  
+  
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vista de usuario ">
+  <meta name="twitter:description" content="Manual de administraci&oacute;n">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="Vista de usuario " />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="Manual de administraci&oacute;n" />
+  <meta property="og:site_name" content="Manual de Administraci&oacute;n" /> 
+
+  <!-- Bootstrap CSS -->
+  <link href="vendors/bootstrap-5.3.7/bootstrap.min.css" rel="stylesheet"/>
+  <link href="vendors/bootstrap-icons-1.13.1/bootstrap-icons.min.css" rel="stylesheet"/>
+
+  <!-- JsTree styles -->
+  <link href="vendors/jstree-3.3.10/themes/default/style.min.css" rel="stylesheet"/>
+
+  <!-- Hnd styles -->
+  <link href="css/layout.min.css" rel="stylesheet" />
+  <link href="css/effects.min.css" rel="stylesheet" />
+  <link href="css/theme-light-blue.min.css" rel="stylesheet" />
+  <link href="css/print.min.css" rel="stylesheet" media="print" />
+  <style type="text/css">nav { width: 350px} @media screen and (min-width:769px) { body.md-nav-expanded div#main { margin-left: 350px} body.md-nav-expanded header { padding-left: 364px} }</style>
+  <style type="text/css">.navigation #inline-toc { width: auto !important}</style>
+
+  <!-- Content style -->
+  <link href="css/hnd.content.css" rel="stylesheet" />
+
+  
+
+
+
+</head>
+
+<body class="md-nav-expanded">
+
+
+
+  
+
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible">Skip to main content</a>
+  </div>
+
+  <header class="headroom">
+    <button class="hnd-toggle btn btn-default">
+      <span class="visually-hidden">Toggle navigation</span>
+      <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>        
+    </button>
+    <h1>Manual de Administraci&oacute;n</h1>
+    
+  </header>
+
+  <nav id="panel-left" class="md-nav-expanded">
+    <!-- Nav tabs -->
+    <ul class="tab-tabs nav nav-tabs" role="tablist">
+      <li id="nav-close" role="presentation"> 
+        <button class="hnd-toggle btn btn-default" aria-label="close">
+          <span class="bi bi-x" aria-hidden="true"></span>
+        </button>
+      </li>
+      
+	  
+        <li role="presentation" class="nav-item tab">
+            <a href="#contents" id="tab-contents" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#contents" aria-controls="contents" aria-selected="true">
+                <i class="bi bi-list-ul"></i>
+                Contenidos
+            </a>
+        </li>
+      
+        <li role="presentation" class="nav-item tab">
+            <a href="#index" id="tab-index" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#index" aria-controls="index" aria-selected="false">
+                <i class="bi bi-asterisk"></i>
+                &Iacute;ndice
+            </a>
+        </li>
+      
+        <li role="presentation" class="nav-item tab">
+            <a href="#search" id="tab-search" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#search" aria-controls="search" aria-selected="false">
+                <i class="bi bi-search"></i>
+                B&uacute;squeda
+            </a>
+        </li>
+      
+    </ul>  <!-- /Nav tabs -->
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+	  
+      <div role="tabpanel" class="tab-pane active" id="contents">
+        <div id="toc" class="tree-container unselectable"
+            data-url="_toc.json"
+            data-openlvl="1"
+        >
+            
+        </div>
+      </div>  <!-- /contents-->
+      
+      <div role="tabpanel" class="tab-pane" id="index">
+        <div id="keywords" class="tree-container unselectable"
+            data-url="_keywords.json"
+            data-openlvl="1"
+        >
+            
+        </div>
+      </div>  <!-- /index-->
+      
+      <div role="tabpanel" class="tab-pane" id="search">
+        <div class="search-content">
+          <div class="search-input">
+            <form id="search-form">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="input-search" name="input-search" placeholder="Search..." aria-label="Search..." />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" aria-label="Search...">
+                      <span class="bi bi-search" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>  <!-- /search-input -->
+          <div class="search-result">
+            <div id="search-info"></div>
+            <div class="tree-container unselectable" id="search-tree"></div>
+          </div>  <!-- /search-result -->
+        </div>  <!-- /search-content -->
+      </div>  <!-- /search-->
+      
+    </div>  <!-- /Tab panes -->
+
+  </nav>
+
+  <div id="main">
+
+    <article>
+        <div id="topic-content" class="container-fluid" 
+		  data-hnd-id="Vistadeusuario"
+		  data-hnd-context="148"
+		  data-hnd-title="Vista de usuario "
+		>
+            
+                <div class="navigation">
+                    <ol class="breadcrumb">
+                        <li><a href="Contenidos.html">Contenidos</a></li><li><a href="Programa.html">Programa</a></li>
+                    </ol>
+                    <div class="nav-arrows">
+                        <div class="btn-group btn-group" role="group"><a class="btn btn-default" href="Programa.html" title="Programa" role="button"><span class="bi bi-chevron-up" aria-hidden="true"></span></a><a class="btn btn-default" href="RecursosLTI.html" title="Recursos LTI" role="button"><span class="bi bi-chevron-left" aria-hidden="true"></span></a><a class="btn btn-default" href="Archivos.html" title="Archivos" role="button"><span class="bi bi-chevron-right" aria-hidden="true"></span></a></div>
+                    </div>
+                </div> 
+            
+
+            <a id="main-content"></a>
+
+            <h2>Vista de usuario </h2>
+
+            <div class="main-content">
+                
+<p class="rvps2"><span class="rvts6">Al ingresar a la sección se muestra el </span><span class="rvts15">Índice </span><span class="rvts6">de contenidos. Desplegando las unidades creadas se puede navegar en los materiales subidos. Por ejemplo (usuario con permiso </span><span class="rvts15">Califica</span><span class="rvts6"> en sección </span><span class="rvts15">Programa</span><span class="rvts6">)</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem226.jpg"></p>
+<p class="rvps2"><span class="rvts6">Si en necesario realizar un seguimiento a los usuarios cursantes puede acceder al listado haciendo clic en </span><span class="rvts15">Seguimiento por usuarios</span><span class="rvts6"> y accederá al avance de los alumnos en los distintos contenidos. También se dispone de un filtro que permite elegir el tipo de material listado.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Esta vista de usuario de la sección </span><span class="rvts15">Programa</span><span class="rvts6"> varía en función del </span><span class="rvts15">permiso</span><span class="rvts6"> utilizado:</span></p>
+<p class="rvps2"><span class="rvts15">+</span><span class="rvts6"> El usuario cursante (permiso </span><span class="rvts15">Cursa</span><span class="rvts6">) sólo accede al índice de contenidos.</span></p>
+<p class="rvps2"><span class="rvts15">+</span><span class="rvts6"> Un usuario Coordinador (permiso </span><span class="rvts15">Ver todos</span><span class="rvts6">) accede a ambas vistas.</span></p>
+<p class="rvps2"><span class="rvts15">+</span><span class="rvts6"> El usuario tutor (permiso </span><span class="rvts15">Califica</span><span class="rvts6">) accede a ambas vistas, puede calificar los distintos contenidos que así lo requieran y además </span><span class="rvts15">Editar</span><span class="rvts6"> los contenidos si puede acceder a la administración.</span></p>
+<p class="rvps2"><span class="rvts6">A continuación se verán más en detalle éstas vistas.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Vista de Seguimiento por usuarios</span></p>
+<p class="rvps2"><span class="rvts6">En esta vista se listan los usuarios que cursan en el aula. Se permite cambiar a la vista por unidades, establecer cual es la vista por defecto para este usuario y aplicar un filtro por unidades (filtra el avance mostrado al contenido de una unidad).&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Además se puede realizar una búsqueda por nombre y/o apellido.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Sólo está disponible para usuarios con los permisos </span><span class="rvts15">Califica</span><span class="rvts6"> y </span><span class="rvts15">Ver todos</span><span class="rvts6">.</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem227.jpg"></p>
+<p class="rvps2"><span class="rvts6">Al ingresar al alumno seleccionado podrá visualizar en detalle su avance en cada unidad. Desplegando una determinada unidad, podrá acceder a los materiales trabajados por el alumno y realizar las acciones necesarias: liberación de evaluaciones, corrección de actividades, etc. El tutor, en la vista por usuario debe corregir, responder, y conducir el aprendizaje del alumno.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Las banderas se mostrarán para el tutor en situaciones específicas en que se requiera una acción de su parte ingresando al material en cuestión. Si se presenta en una actividad el tutor debe entrar a corregir el material devuelto. En cambio si se trata de una evaluación, la bandera se visualizará cuando la misma haya sido desaprobada y requiera su liberación.&nbsp;</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem236.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Vista del Índice de contenidos&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Esta vista es la única que tendrá disponible el</span><span class="rvts15"> usuario con permiso Cursa</span><span class="rvts6">, ya que sólo le incumbe su propio avance.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">1- Si el usuario está cursando en el aula</span><span class="rvts6">, al ingresar a Programa verá el listado de unidades propuestas con su avance en cada una de ellas. Al hacer clic sobre una unidad despliega sus contenidos ordenados como se ha definido en la administración.</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem252.jpg"></p>
+<p class="rvps3"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Al ingresar a un elemento, podrá hacer distintas tareas e función de su tipo (al posicionarse sobre el nombre se visualizará el tipo de material:</span></p>
+<p class="rvps2"><span class="rvts15">+ Contenido Texto</span><span class="rvts6">: es una pantalla con contenido y sólo puede registrarse como leída al ingresar.</span></p>
+<p class="rvps2"><span class="rvts15">+ Contenido Material de estudio</span><span class="rvts6">: se muestra el archivo incrustado en el campus si su formato lo permite, y se ofrece un botón para su apertura/descarga.</span></p>
+<p class="rvps2"><span class="rvts15">+ Paquetes scorm</span><span class="rvts6">: accede al árbol de contenido scorm, al hacer clic en un SCO determinado lo abre dentro de la pantalla actual.</span></p>
+<p class="rvps2"><span class="rvts15">+ Actividades</span><span class="rvts6">: se accederá al detalle de la actividad y al archivo si hubiere, así como a la interacción tutor - &nbsp;alumno.</span></p>
+<p class="rvps2"><span class="rvts15">+ Debates</span><span class="rvts6">: ingresa al tema de debate para que el alumno participe.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts15">+ Evaluaciones</span><span class="rvts6">: el usuario puede rendir algún examen que no haya realizado o visualizar el resultado de evaluaciones ya realizadas. En el caso de que desee acceder a alguna autoevaluación ya realizada, el sistema le mostrará la fecha y hora de realización además de la información que dependerá de la configuración de la evaluación.</span></p>
+<p class="rvps2"><span class="rvts15">+ Encuestas</span><span class="rvts6">: acceso a realizar las encuestas propuestas</span></p>
+<p class="rvps3"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">El usuario podrá acceder a este detalle según su avance y la configuración de las unidades (correlatividad, obligatoriedad del contenido).</span></p>
+<p class="rvps2"><span class="rvts6">El estado de cada uno de los elementos de la sección Programa esta representado por un icono que irá cambiando en la medida de que los usuarios realicen acciones sobre ellos:</span></p>
+<p class="rvps2"><span class="rvts6">+ </span><span class="rvts15">Colores</span><span class="rvts6">: el rojo indica material obligatorio, mientras que el azul es opcional.</span></p>
+<p class="rvps2"><span class="rvts6">+ </span><span class="rvts15">Formas</span><span class="rvts6">: siempre comenzará siendo un circulo vacío, que implica que no fue completado. Cuando sea realizado cambia a un tilde verde. Cuando se trata de una evaluación o actividad no aprobada muestra una cruz roja. Finalmente en el caso de las actividades puede ser una flecha indicando "entregado por el alumno".</span></p>
+<p class="rvps2"><span class="rvts6">+ </span><span class="rvts15">Fechas</span><span class="rvts6">: si el ítem tiene fechas establecidas podemos ver un calendario (abrirá en un momento determinado), un cronometro (cerrará en un momento determinado) o un candado (cerrado).</span></p>
+<p class="rvps2"><span class="rvts6">La sección de </span><span class="rvts15">Contenidos relacionados</span><span class="rvts6">, consiste en las publicaciones realizadas en las secciones Foros, Archivos, Sitios, Wikis, Faqs, Noticias, adicionales al contenido central. Lo más usual es que se vayan actualizando a medida que avanzan las necesidades y la colaboración entre los miembros del aula.</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem224.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Al ingresar a un paquete SCORM mostrará un detalle que permitirá ir accediendo a los distintos SCO del paquete:</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem228.jpg"></p>
+<p class="rvps8"><span class="rvts16"><br/></span></p>
+<p class="rvps2"><span class="rvts15">2- </span><span class="rvts6">Si quien accede a la vista por unidades </span><span class="rvts15">es un usuario con permiso Califica </span><span class="rvts6">en Programa, ve el listado de unidades con el cálculo de usuarios que las han completado. Al acceder a una unidad puntual se visualiza su contenido con el indicador de la cantidad de usuarios que la han completado y la bandera correspondiente si hay ítems dentro que requieran la atención del tutor.</span></p>
+<p class="rvps3"><span class="rvts6"><br/></span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem225.jpg"></p>
+<p class="rvps2"><span class="rvts6">Al ingresar a un ítem en particular se muestra su contenido. Si se desea ver quien lo realizó, está disponible el listado de usuarios con su estado en el ítem seleccionado en </span><span class="rvts15">Seguimiento</span><span class="rvts6">, mostrando el estado del ítem y su fecha de realización (o último acceso) si corresponde. Al hacer clic en el nombre de un usuario se visualiza la realización del mismo en el ítem que se está mostrando.</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem229.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">En el caso de ingresar a un paquete SCORM se visualiza el listado de alumnos con su estado y se puede obtener un reporte exportando una planilla de cálculo (xlsx) que muestra el detalle del porcentaje de completitud del scorm y el estado de cada SCO para los alumnos de la lista.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">La visualización de los diferentes ítems en la vista de usuario se muestra brevemente aquí y su detalle se encuentra en el </span><span class="rvts15">Manual de usuario</span><span class="rvts6"> del campus.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Encuesta</span><span class="rvts6">: al ingresar a realizar una encuesta un usuario </span><span class="rvts15">alumno</span><span class="rvts6"> ve lo siguiente:</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem241.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Evaluaciones: </span><span class="rvts6">al acceder a realizar una evaluación (usuario con permiso </span><span class="rvts15">Cursa</span><span class="rvts6">) se pedirá confirmación (empieza a contabilizarse el tiempo si hubiera un límite) y luego se muestra como en el ejemplo:</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem296.jpg"></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem297.jpg"></p>
+<p class="rvps8"><span class="rvts6">En este ejemplo es una evaluación que muestra las preguntas</span><span class="rvts15"> una por vez</span><span class="rvts6">.</span></p>
+<p class="rvps8"><span class="rvts6"><br/></span></p>
+<p class="rvps11"><span class="rvts15">Importante:</span><span class="rvts6"> si la evaluación es SUPERVISADA, el tiempo insumido en la validación de la persona, el cierre de otras pestañas, otorgar los permisos a la cámara y las configuraciones necesarias antes de entrar al examen se consideran </span><span class="rvts15">parte del tiempo</span><span class="rvts6"> del mismo.&nbsp;</span><br/><span class="rvts15"></span><br/><span class="rvts15">Ver &nbsp;más información sobre supervisión en: </span><a class="rvts14" href="Supervisar.html">Evaluaciones</a><span class="rvts15"> y </span><a class="rvts14" href="Proctorizer.html">Proctorizer</a><span class="rvts15">.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Respecto a </span><span class="rvts15">evaluaciones externas</span><span class="rvts6"> (realizadas con herramientas externas) para el usuario el funcionamiento es el mismo que con una evaluación educativa. Al hacer clic sobre el nombre de la evaluación se pedirá una confirmación al usuario de que realmente desea realizarla, tal como ocurre con las evaluaciones tradicionales y al </span><span class="rvts15">Aceptar</span><span class="rvts6">, se abrirá en una nueva ventana la evaluación en cuestión.</span></p>
+<p class="rvps2"><span class="rvts6">A modo de ejemplo, en la siguiente imagen puede verse una evaluación realizada con la herramienta</span><span class="rvts15"> JCross</span><span class="rvts6"> que forma parte de </span><span class="rvts15">Hot Potatoes.</span></p>
+<p class="rvps3"><span class="rvts6">&nbsp;</span><img alt="" style="padding : 1px;" src="lib/NewItem295.jpg"></p>
+<p class="rvps2"><span class="rvts6">En este caso, una vez que el usuario haya completado la evaluación deberá hacer clic en </span><span class="rvts15">Comprobar Respuestas</span><span class="rvts6">, de esta manera interactúa con el campus, comunicándole el resultado obtenido (nota y detalle). Mientras se esté realizando la evaluación, si se intenta retornar al campus se visualizará el mensaje: </span><span class="rvts15">En Curso. No cierres ni navegues en esta ventana</span><span class="rvts6">.</span></p>
+<p class="rvps7"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Cuando un usuario </span><span class="rvts15">Tutor</span><span class="rvts6"> (con permiso </span><span class="rvts15">Califica</span><span class="rvts6">) accede a visualizar el estado de las evaluaciones realizadas, en el caso que haya evaluaciones desaprobadas, éstas podrán ser liberadas.</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem293.jpg"></p>
+<p class="rvps7"><span class="rvts6"><br/></span></p>
+<p class="rvps8"><span class="rvts15">Actividades</span><span class="rvts6">: en la vista de usuario </span><span class="rvts15">se mantiene un registro de la interacción alumno-tutor</span><span class="rvts6"> a lo largo del tiempo, mientras se realiza la entrega/corrección de una actividad.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Al ingresar un cursante podrá </span><span class="rvts15">Resolver la actividad</span><span class="rvts6"> entregando una respuesta y/o adjuntar un archivo, de ser necesario.</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem331.jpg"></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem330.jpg"></p>
+<p class="rvps2"><span class="rvts6">Cuando un usuario hace entrega de la actividad realizada se registra su acción, automáticamente se envía una notificación al correo externo del responsable.&nbsp;</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem329.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">El tutor al recibir el aviso de la actividad entregada (o marcada como pendiente de atención) deberá entonces llevar a cabo su corrección. El tutor puede pasar la actividad a Aprobada, Reentregar o No Aprobada.&nbsp;</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem327.jpg"></p>
+<p class="rvps2"><span class="rvts6">En todos los casos puede optar por enviar un aviso al alumno informándole su situación. Si este usuario no tiene una cuenta de correo definida, la opción se muestra deshabilitada.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">El tutor, ante la entrega del alumno tiene varias opciones:</span></p>
+<p class="rvps2"><span class="rvts6">1- Si la considera </span><span class="rvts15">Aprobada</span><span class="rvts6"> el alumno visualizará "Resultado de la corrección: Aprobada", con el comentario del tutor debajo y la actividad se contabilizará como finalizada en el cálculo de avance.</span></p>
+<p class="rvps2"><span class="rvts6">2- Podría pasar que considere que la misma requiere de una revisión por parte del alumno, con lo cual éste deberá volver a realizarla, estableciendo la opción </span><span class="rvts15">Rehacer</span><span class="rvts6">. Se mostrará un alerta al alumno: "</span><span class="rvts16">Debes realizar nuevamente esta actividad</span><span class="rvts6">" y debajo el detalle de la Corrección enviada por el tutor. En este caso el alumno puede volver a escribir al tutor y adjuntar archivos. El tutor recibirá nuevamente un aviso por email indicando la nueva entrega.</span></p>
+<p class="rvps2"><span class="rvts6">3- Finalmente puede marcarla como </span><span class="rvts15">No aprobada </span><span class="rvts6">y el alumno visualizará lo siguiente: &nbsp;"Resultado de la corrección: No aprobada" y no podrá rehacerla hasta que no lo autorice el tutor.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Cada interacción entre el alumno y el tutor quedará registrada siempre y cuando la misma se realice desde el espacio destinado para tal fin, lográndose así un mayor control sobre la misma. Debajo de la última realización se muestran para desplegar las </span><span class="rvts15">Realizaciones Anteriores</span><span class="rvts6">.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Debates:</span><span class="rvts6"> al ingresar a un Debate, el alumno visualiza la consigna y podrá participar del mismo en función de cómo esté configurado el tema.</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem339.jpg"></p>
+<p class="rvps2"><span class="rvts6">Al intervenir:</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem340.jpg"></p>
+<p class="rvps2"><span class="rvts6">Se muestra debajo del tema, y se indica si fue aprobado, esto depende de la configuración del mismo y podría requerir aprobación del tutor:</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem341.jpg"></p>
+<p class="rvps2"><span class="rvts6">Más detalle sobre las posibles situaciones puede consultarse en el manual de vista de usuario.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Recursos LTI: al ingresar, el alumno verá el recurso incrustado.</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem356.jpg"><span class="rvts6">&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Y realizarlo:</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem357.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Edición de contenidos desde la vista de usuarios</span></p>
+<p class="rvps2"><span class="rvts6">Se accede a esta herramienta haciendo clic en el botón </span><span class="rvts15">Editar (1) </span><span class="rvts6">al ingresar a la sección </span><span class="rvts15">Programa</span><span class="rvts6"> :</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem242.jpg"></p>
+<p class="rvps6"><span class="rvts6">Se dispone de un filtro por tipo de Material, obligatoriedad o si tienen pendientes de revisión, muy útil cuando cuando hay muchos ítems a gestionar.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Se mostrarán las unidades de cursado con accesos rápidos a la gestión de sus ítems:</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem234.jpg"></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Los accesos llevarán al usuario a la administración (si tiene asignado algún que le permita el acceso) &nbsp;a las pantallas correspondientes: eliminar (la cruz), modificar (la hoja con un lápiz) y alcance selectivo (la red) para el objeto de esa línea.</span></p>
+<p class="rvps2"><span class="rvts6">El botón de </span><a class="rvts13" href="Organizar.html">Organizar</a><span class="rvts6"> nos llevará a la correspondiente pantalla en la administración.</span></p>
+<p class="rvps2"><span class="rvts6">El botón Separadores nos permitirá crear directamente un separador, cuya posición luego debemos corregir con Ordenar:</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem292.jpg"></p>
+<p class="rvps3"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6"></span><span class="rvts6"></span></p>
+
+            </div>
+            
+            <div id="topic_footer"><div id="topic_footer_content">Campus - 15/09/2025</div></div>
+        </div>  <!-- /#topic-content -->
+    </article>
+
+    <footer></footer>
+
+  </div>  <!-- /#main -->
+
+  <div class="mask" data-bs-toggle="sm-nav-expanded"></div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="hndModal" tabindex="-1" role="dialog" aria-labelledby="hndModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="hndModalLabel"></h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary modal-btn-close" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Splitter -->
+  <div id="hnd-splitter" style="left: 350px"></div>  
+
+  <!-- Scripts -->
+  <script src="vendors/jquery-3.7.1/jquery.min.js"></script>
+  <script src="vendors/bootstrap-5.3.7/bootstrap.bundle.min.js"></script>
+  <script src="vendors/markjs-8.11.1/jquery.mark.min.js"></script>
+  <script src="vendors/uri-1.19.11/uri.min.js"></script>
+  <script src="vendors/imageMapResizer-1.0.10/imageMapResizer.min.js"></script>
+  <script src="vendors/headroom-0.11.0/headroom.min.js"></script>
+  <script src="vendors/jstree-3.3.10/jstree.min.js"></script>  
+  <script src="vendors/interactjs-1.9.22/interact.min.js"></script>  
+
+  <!-- HelpNDoc scripts -->
+  <script src="_translations.js"></script>
+  <script src="js/hndsd.min.js"></script>
+  <script src="js/hndse.min.js"></script>
+  <script src="js/app.min.js"></script>
+
+  <!-- Init script -->
+  <script src="_topic_init.js"></script>
+
+
+
+</body>
+
+</html>
+

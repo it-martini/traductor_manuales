@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(mkdir:*)",
+      "Bash(python3:*)",
+      "Bash(find:*)",
+      "Read(//home/sebos/tmp/manuales/**)",
+      "Bash(while read f)",
+      "Bash(done)",
+      "Bash(unzip:*)",
+      "Bash(pandoc:*)",
+      "Bash(awk:*)",
+      "Bash(pdfimages:*)",
+      "Bash(pdfinfo:*)",
+      "Bash(pdfgrep:*)",
+      "Bash(wget:*)",
+      "Bash(ar x:*)",
+      "Bash(tar:*)",
+      "Bash(./usr/local/bin/wkhtmltopdf:*)",
+      "Bash(/home/sebos/tmp/traductor_manuales/bin/wkhtmltopdf_patched:*)",
+      "Bash(temp_titulo_formato_fixed.html )",
+      "Bash(test_con_imagenes.pdf)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="generator" content="HelpNDoc Professional Edition 10.0.0.105">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="favicon.ico"/>
+
+  <title>Copiar/Mover usuarios</title>
+  <meta name="description" content="Manual de administraci&oacute;n" /> 
+  <meta name="keywords" content="usuario,grupo,estado,an&oacute;nimo,perfiles,perfil,origen,copiar,borrar,mover,principal,,Copiar/Mover">
+
+
+
+  
+  
+
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Copiar/Mover usuarios">
+  <meta name="twitter:description" content="Manual de administraci&oacute;n">
+
+  <!-- Open Graph data -->
+  <meta property="og:title" content="Copiar/Mover usuarios" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="Manual de administraci&oacute;n" />
+  <meta property="og:site_name" content="Manual de Administraci&oacute;n" /> 
+
+  <!-- Bootstrap CSS -->
+  <link href="vendors/bootstrap-5.3.7/bootstrap.min.css" rel="stylesheet"/>
+  <link href="vendors/bootstrap-icons-1.13.1/bootstrap-icons.min.css" rel="stylesheet"/>
+
+  <!-- JsTree styles -->
+  <link href="vendors/jstree-3.3.10/themes/default/style.min.css" rel="stylesheet"/>
+
+  <!-- Hnd styles -->
+  <link href="css/layout.min.css" rel="stylesheet" />
+  <link href="css/effects.min.css" rel="stylesheet" />
+  <link href="css/theme-light-blue.min.css" rel="stylesheet" />
+  <link href="css/print.min.css" rel="stylesheet" media="print" />
+  <style type="text/css">nav { width: 350px} @media screen and (min-width:769px) { body.md-nav-expanded div#main { margin-left: 350px} body.md-nav-expanded header { padding-left: 364px} }</style>
+  <style type="text/css">.navigation #inline-toc { width: auto !important}</style>
+
+  <!-- Content style -->
+  <link href="css/hnd.content.css" rel="stylesheet" />
+
+  
+
+
+
+</head>
+
+<body class="md-nav-expanded">
+
+
+
+  
+
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible">Skip to main content</a>
+  </div>
+
+  <header class="headroom">
+    <button class="hnd-toggle btn btn-default">
+      <span class="visually-hidden">Toggle navigation</span>
+      <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>        
+    </button>
+    <h1>Manual de Administraci&oacute;n</h1>
+    
+  </header>
+
+  <nav id="panel-left" class="md-nav-expanded">
+    <!-- Nav tabs -->
+    <ul class="tab-tabs nav nav-tabs" role="tablist">
+      <li id="nav-close" role="presentation"> 
+        <button class="hnd-toggle btn btn-default" aria-label="close">
+          <span class="bi bi-x" aria-hidden="true"></span>
+        </button>
+      </li>
+      
+	  
+        <li role="presentation" class="nav-item tab">
+            <a href="#contents" id="tab-contents" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#contents" aria-controls="contents" aria-selected="true">
+                <i class="bi bi-list-ul"></i>
+                Contenidos
+            </a>
+        </li>
+      
+        <li role="presentation" class="nav-item tab">
+            <a href="#index" id="tab-index" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#index" aria-controls="index" aria-selected="false">
+                <i class="bi bi-asterisk"></i>
+                &Iacute;ndice
+            </a>
+        </li>
+      
+        <li role="presentation" class="nav-item tab">
+            <a href="#search" id="tab-search" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#search" aria-controls="search" aria-selected="false">
+                <i class="bi bi-search"></i>
+                B&uacute;squeda
+            </a>
+        </li>
+      
+    </ul>  <!-- /Nav tabs -->
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+	  
+      <div role="tabpanel" class="tab-pane active" id="contents">
+        <div id="toc" class="tree-container unselectable"
+            data-url="_toc.json"
+            data-openlvl="1"
+        >
+            
+        </div>
+      </div>  <!-- /contents-->
+      
+      <div role="tabpanel" class="tab-pane" id="index">
+        <div id="keywords" class="tree-container unselectable"
+            data-url="_keywords.json"
+            data-openlvl="1"
+        >
+            
+        </div>
+      </div>  <!-- /index-->
+      
+      <div role="tabpanel" class="tab-pane" id="search">
+        <div class="search-content">
+          <div class="search-input">
+            <form id="search-form">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="input-search" name="input-search" placeholder="Search..." aria-label="Search..." />
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit" aria-label="Search...">
+                      <span class="bi bi-search" aria-hidden="true"></span>
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>  <!-- /search-input -->
+          <div class="search-result">
+            <div id="search-info"></div>
+            <div class="tree-container unselectable" id="search-tree"></div>
+          </div>  <!-- /search-result -->
+        </div>  <!-- /search-content -->
+      </div>  <!-- /search-->
+      
+    </div>  <!-- /Tab panes -->
+
+  </nav>
+
+  <div id="main">
+
+    <article>
+        <div id="topic-content" class="container-fluid" 
+		  data-hnd-id="CopiarMoverusuarios"
+		  data-hnd-context="60"
+		  data-hnd-title="Copiar/Mover usuarios"
+		>
+            
+                <div class="navigation">
+                    <ol class="breadcrumb">
+                        <li><a href="Usuarios1.html">Usuarios</a></li>
+                    </ol>
+                    <div class="nav-arrows">
+                        <div class="btn-group btn-group" role="group"><a class="btn btn-default" href="Usuarios1.html" title="Usuarios" role="button"><span class="bi bi-chevron-up" aria-hidden="true"></span></a><a class="btn btn-default" href="Eliminaciondeunusuario.html" title="Eliminaci&oacute;n de un usuario" role="button"><span class="bi bi-chevron-left" aria-hidden="true"></span></a><a class="btn btn-default" href="Inscribir.html" title="Inscribir" role="button"><span class="bi bi-chevron-right" aria-hidden="true"></span></a></div>
+                    </div>
+                </div> 
+            
+
+            <a id="main-content"></a>
+
+            <h2>Copiar/Mover usuarios</h2>
+
+            <div class="main-content">
+                
+<p class="rvps2"><span class="rvts6">En diversas ocasiones es necesario copiar o mover los usuarios de un aula hacia otra, o de varias aulas hacia otra. Por ejemplo, los alumnos de 4º Año A, y B, pasan después de finalizado el año escolar a 5º Año. O también, los alumnos de 5º Año de las distintas disciplinas escolares, pasan a un grupo llamado Ex-Alumnos.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Pasar alumno por alumno modificando los usuarios a mano es un proceso engorroso, sin embargo, con esta herramienta se vuelve una tarea simple y rápida, ya que se pueden realizar acciones masivas por </span><span class="rvts15">perfil</span><span class="rvts6">.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">A continuación se muestra la pantalla principal de Copiar/Mover Usuarios.</span></p>
+<p class="rvps3"><img alt="" style="padding : 1px;" src="lib/NewItem190.jpg"></p>
+<p class="rvps2"><span class="rvts6">La pantalla se divide arriba en dos columnas, las aulas </span><span class="rvts15">Desde</span><span class="rvts6"> (aulas de Origen) y el grupo </span><span class="rvts15">Hacia</span><span class="rvts6"> (una única aula Destino). Por ejemplo, en este caso, se estarán copiando o moviendo usuarios de 3 aulas diferentes hacia un aula nueva (Ciudadanía).&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Pero antes es obligatorio seleccionar los perfiles de usuario a ser copiados. Se muestran todos los perfiles existentes en el aula y es necesario seleccionar al menos un perfil. Si se seleccionan varias aulas el nombre del perfil a ser mostrado en la lista es el correspondiente a la primera de las aulas seleccionadas.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6">Una vez seleccionados los perfiles y las aulas Origen y Destino, se podrá seleccionar si se quiere copiar o mover sólo los usuarios activos en cada uno de los perfiles. Si esta opción no se selecciona, entonces se copiarán/moverán todos los usuarios del perfil, en su estado actual.</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">El próximo paso es seleccionar qué acción se desea realizar con las aulas seleccionadas: </span><span class="rvts15">¿Copiar o Mover?</span></p>
+<p class="rvps2"><span class="rvts15"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Copiar</span></p>
+<p class="rvps2"><span class="rvts6">Cuando se selecciona Copiar, los usuarios de los perfiles seleccionados en las aulas origen simplemente se inscribirán en el aula Destino. Los usuarios se conservan en el aula donde ya pertenecían y se agregarán al nuevo aula, con el estado de usuario con el que figuraban en el aula original, y con la fecha de alta actualizada.</span></p>
+<p class="rvps2"><span class="rvts15"><br/></span></p>
+<p class="rvps2"><span class="rvts15">Mover</span></p>
+<p class="rvps2"><span class="rvts6">Cuando se selecciona Mover, los usuarios de los perfiles seleccionados en las aulas origen, van a ser inscriptos al aula Destino, sin embargo </span><span class="rvts15">van a ser borrados en las aulas de origen</span><span class="rvts6"> seleccionadas.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps3"><span class="rvts15">Importante: el borrado en el aula origen es </span><span class="rvts20">Irreversible</span><span class="rvts15"> cuando se usa MOVER.</span></p>
+<p class="rvps2"><span class="rvts6">Dado que el usuario se eliminará en su origen, el Administrador debe decidir qué hacer con el contenido de los usuarios en las aulas origen:</span></p>
+<p class="rvps2"><span class="rvts6">- Borrar: </span><span class="rvts15">se pierde </span><span class="rvts6">el contenido agregado por los usuarios en las aulas de origen.</span></p>
+<p class="rvps2"><span class="rvts6">- Asignar a usuario anónimo: se dejan los contenidos en las aulas origen pero quedan asignados al usuario </span><span class="rvts15">Anónimo</span><span class="rvts6">.</span></p>
+<p class="rvps2"><span class="rvts6">Esta decisión es necesaria, ya que al borrarse los usuarios creadores del contenido, el mismo quedaría huérfano.&nbsp;</span></p>
+<p class="rvps2"><span class="rvts6"><br/></span></p>
+<p class="rvps2"><span class="rvts6">Una vez que todas estas decisiones son tomadas, con sólo hacer clic en Copiar/Mover se realizará la operación.</span></p>
+<p class="rvps2"><span class="rvts6">En función de lo seleccionado se mostrará un mensaje acorde como medida preventiva en caso de equivocaciones. Por ejemplo:&nbsp;</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem185.jpg"></p>
+<p class="rvps2"><span class="rvts6">Al hacer clic en </span><span class="rvts15">Continuar</span><span class="rvts6">, se informará el mensaje correspondiente, confirmando la operación:</span></p>
+<p class="rvps7"><img alt="" style="padding : 1px;" src="lib/NewItem184.jpg"><span class="rvts6"></span></p>
+
+            </div>
+            
+            <div id="topic_footer"><div id="topic_footer_content">Campus - 15/09/2025</div></div>
+        </div>  <!-- /#topic-content -->
+    </article>
+
+    <footer></footer>
+
+  </div>  <!-- /#main -->
+
+  <div class="mask" data-bs-toggle="sm-nav-expanded"></div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="hndModal" tabindex="-1" role="dialog" aria-labelledby="hndModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="hndModalLabel"></h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary modal-btn-close" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Splitter -->
+  <div id="hnd-splitter" style="left: 350px"></div>  
+
+  <!-- Scripts -->
+  <script src="vendors/jquery-3.7.1/jquery.min.js"></script>
+  <script src="vendors/bootstrap-5.3.7/bootstrap.bundle.min.js"></script>
+  <script src="vendors/markjs-8.11.1/jquery.mark.min.js"></script>
+  <script src="vendors/uri-1.19.11/uri.min.js"></script>
+  <script src="vendors/imageMapResizer-1.0.10/imageMapResizer.min.js"></script>
+  <script src="vendors/headroom-0.11.0/headroom.min.js"></script>
+  <script src="vendors/jstree-3.3.10/jstree.min.js"></script>  
+  <script src="vendors/interactjs-1.9.22/interact.min.js"></script>  
+
+  <!-- HelpNDoc scripts -->
+  <script src="_translations.js"></script>
+  <script src="js/hndsd.min.js"></script>
+  <script src="js/hndse.min.js"></script>
+  <script src="js/app.min.js"></script>
+
+  <!-- Init script -->
+  <script src="_topic_init.js"></script>
+
+
+
+</body>
+
+</html>
+
