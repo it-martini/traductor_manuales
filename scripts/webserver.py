@@ -54,14 +54,9 @@ class FixedTableHandler(BaseHTTPRequestHandler):
             if path.startswith('/'):
                 path = path[1:]
 
-            # Determinar si es un archivo del directorio original o output
-            if path.startswith('../original/'):
-                # Archivo del español original
-                relative_path = path.replace('../original/', '')
-                file_path = OUTPUT_DIR.parent / 'original' / relative_path
-            else:
-                # Archivo del output normal
-                file_path = Path(OUTPUT_DIR) / path
+            # Ahora servimos desde el directorio raíz del proyecto
+            # Los archivos están en: original/... y output/...
+            file_path = Path(path)
 
             if file_path.is_file():
                 # Determinar tipo MIME
@@ -383,29 +378,28 @@ class FixedTableHandler(BaseHTTPRequestHandler):
                                     # Preferir index.html si existe
                                     index_file = html_dir / 'index.html'
                                     if index_file.exists():
-                                        rel_path = os.path.relpath(index_file, OUTPUT_DIR)
-                                        files['html'] = rel_path.replace('\\', '/')
+                                        files['html'] = f"original/{manual_key}_es/html/index.html"
                                     else:
                                         # Usar cualquier archivo HTML
                                         html_files = list(html_dir.glob('*.html'))
                                         if html_files:
-                                            rel_path = os.path.relpath(html_files[0], OUTPUT_DIR)
-                                            files['html'] = rel_path.replace('\\', '/')
+                                            filename = html_files[0].name
+                                            files['html'] = f"original/{manual_key}_es/html/{filename}"
 
                                 # DOCX - buscar en subdirectorio pdf
                                 pdf_dir = base_path / 'pdf'
                                 if pdf_dir.exists():
                                     docx_files = list(pdf_dir.glob('*.docx'))
                                     if docx_files:
-                                        rel_path = os.path.relpath(docx_files[0], OUTPUT_DIR)
-                                        files['docx'] = rel_path.replace('\\', '/')
+                                        filename = docx_files[0].name
+                                        files['docx'] = f"original/{manual_key}_es/pdf/{filename}"
 
                                 # PDF - también en subdirectorio pdf
                                 if pdf_dir.exists():
                                     pdf_files = list(pdf_dir.glob('*.pdf'))
                                     if pdf_files:
-                                        rel_path = os.path.relpath(pdf_files[0], OUTPUT_DIR)
-                                        files['pdf'] = rel_path.replace('\\', '/')
+                                        filename = pdf_files[0].name
+                                        files['pdf'] = f"original/{manual_key}_es/pdf/{filename}"
                         else:
                             # Otros idiomas
                             lang_info = LANGUAGES.get(lang_code, {})
@@ -420,25 +414,27 @@ class FixedTableHandler(BaseHTTPRequestHandler):
                                     if html_files:
                                         # Preferir index.html si existe
                                         index_file = html_dir / 'index.html'
-                                        target = index_file if index_file.exists() else html_files[0]
-                                        rel_path = os.path.relpath(target, OUTPUT_DIR)
-                                        files['html'] = rel_path.replace('\\', '/')
+                                        if index_file.exists():
+                                            files['html'] = f"output/{output_dir}/{manual_key}_{lang_code}/html/index.html"
+                                        else:
+                                            filename = html_files[0].name
+                                            files['html'] = f"output/{output_dir}/{manual_key}_{lang_code}/html/{filename}"
 
                                 # DOCX
                                 docx_dir = manual_dir / 'docx'
                                 if docx_dir.exists():
                                     docx_files = list(docx_dir.glob('*.docx'))
                                     if docx_files:
-                                        rel_path = os.path.relpath(docx_files[0], OUTPUT_DIR)
-                                        files['docx'] = rel_path.replace('\\', '/')
+                                        filename = docx_files[0].name
+                                        files['docx'] = f"output/{output_dir}/{manual_key}_{lang_code}/docx/{filename}"
 
                                 # PDF
                                 pdf_dir = manual_dir / 'pdf'
                                 if pdf_dir.exists():
                                     pdf_files = list(pdf_dir.glob('*.pdf'))
                                     if pdf_files:
-                                        rel_path = os.path.relpath(pdf_files[0], OUTPUT_DIR)
-                                        files['pdf'] = rel_path.replace('\\', '/')
+                                        filename = pdf_files[0].name
+                                        files['pdf'] = f"output/{output_dir}/{manual_key}_{lang_code}/pdf/{filename}"
 
                     except Exception as e:
                         print(f"Error escaneando {lang_code}/{manual_key}: {e}")
@@ -457,8 +453,14 @@ class FixedTableHandler(BaseHTTPRequestHandler):
 def start_table_webserver(port=8080):
     """Inicia el servidor web con tabla personalizada"""
     try:
+        # Cambiar al directorio base del proyecto (parent de OUTPUT_DIR)
+        project_root = OUTPUT_DIR.parent
+        original_dir = os.getcwd()
+        os.chdir(project_root)
+
         if not OUTPUT_DIR.exists():
             print(f"❌ El directorio {OUTPUT_DIR} no existe")
+            os.chdir(original_dir)
             return False
 
         server = HTTPServer(('localhost', port), FixedTableHandler)
@@ -469,7 +471,7 @@ def start_table_webserver(port=8080):
 
         url = f"http://localhost:{port}"
         print(f"✅ Servidor tabla iniciado en {url}")
-        print(f"📁 Sirviendo desde: {OUTPUT_DIR}")
+        print(f"📁 Sirviendo desde: {project_root}")
 
         return server
 

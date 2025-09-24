@@ -1032,11 +1032,6 @@ class MainMenu:
                 print("\n🎉 ¡Webserver iniciado exitosamente!")
                 print("🌍 URL: http://localhost:8080")
                 print("📁 Navegador de archivos disponible")
-
-                # Preguntar si abrir en navegador
-                response = input("\n¿Abrir en el navegador? (S/n): ").lower()
-                if response in ['', 's', 'si', 'y', 'yes']:
-                    self._open_webserver_in_browser("http://localhost:8080")
             else:
                 stdout, stderr = process.communicate()
                 print("❌ No se pudo iniciar el webserver")
