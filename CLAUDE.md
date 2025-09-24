@@ -28,15 +28,18 @@ This is a **manual translation system** that converts Spanish technical document
 
 - **Entry Point**: `traductor.py` - Single point of entry that launches the interactive menu
 - **Main Menu**: `scripts/menu_main.py` - Interactive CLI with visual status of all translations
+- **Web Server**: `scripts/webserver.py` - HTTP server with HTML table interface for browsing manuals
 - **HTML Translator**: `scripts/html_translator.py` - Core translation engine with smart caching
 - **DOCX Converter**: `scripts/docx_converter.py` - Converts translated HTML to formatted Word documents
-- **Configuration**: `scripts/languages_config.py` and `scripts/system_config.py`
+- **Configuration**: `scripts/config.py`, `scripts/languages_config.py` and `scripts/system_config.py`
 
 ### Directory Structure
 
 ```
 traductor_manuales/
 ├── traductor.py              # Main entry point
+├── bin/                      # System binaries
+│   └── wkhtmltopdf_patched   # Patched wkhtmltopdf for PDFs
 ├── original/                 # Source Spanish manuals
 │   ├── open_aula_front_es/   # User manual (students)
 │   └── open_aula_back_es/    # Admin manual (administrators)
@@ -59,7 +62,7 @@ traductor_manuales/
 - `open_aula_back` - Administrator manual
 Both are treated as separate translation projects.
 
-**Language Configuration**: Languages are defined in `scripts/languages_config.py` with:
+**Language Configuration**: Languages are defined in `scripts/config.py` (and legacy `scripts/languages_config.py`) with:
 - Native names and emoji flags
 - Claude API language codes
 - Output directory mappings
@@ -93,11 +96,25 @@ python3 scripts/docx_converter.py --lang en --manual open_aula_front
 python3 scripts/docx_converter.py --lang en --manual open_aula_front --force
 ```
 
+### Web Server for Manual Navigation
+```bash
+# Start integrated web server (from main menu option [6])
+python3 traductor.py
+# Then select [6] Encender/Apagar webserver → [1] Iniciar webserver
+
+# Start standalone web server
+python3 scripts/webserver.py
+
+# Access web interface
+http://localhost:8080
+```
+
 ## Configuration Files
 
 - **`.env`**: Contains `CLAUDE_API_KEY=your_key_here`
-- **`scripts/system_config.py`**: Paths, timeouts, cost thresholds
-- **`scripts/languages_config.py`**: All supported languages and their configuration
+- **`scripts/config.py`**: Main configuration including languages and system settings
+- **`scripts/languages_config.py`**: Legacy language configuration (still supported)
+- **`scripts/system_config.py`**: System-specific settings (paths, timeouts, etc.)
 
 ## Translation Cost Management
 
@@ -118,13 +135,13 @@ Cache is automatically managed - no manual intervention needed.
 ## Development
 
 ### Adding New Languages
-1. Edit `scripts/languages_config.py`
+1. Edit `scripts/config.py` (or `scripts/languages_config.py` for legacy support)
 2. Add new entry to `LANGUAGES` dict with proper `claude_code` and `output_dir`
 3. System auto-creates directories as needed
 
 ### Adding New Manual Types
 1. Place source files in `original/manual_name_es/`
-2. Update `MANUALS` dict in `scripts/languages_config.py`
+2. Update `MANUALS` dict in `scripts/config.py`
 3. System auto-detects new manuals in menu
 
 ### Translation Prompt Customization

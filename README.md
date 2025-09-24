@@ -10,15 +10,18 @@ traductor_manuales/
 ├── .env                   # Configuración API (no versionado)
 ├── README.md              # Documentación principal
 ├── CLAUDE.md              # Instrucciones para Claude Code
+├── bin/                   # Binarios del sistema
+│   └── wkhtmltopdf_patched # wkhtmltopdf parcheado para PDFs
 │
 ├── scripts/               # Sistema de traducción
-│   ├── main.py            # Lógica principal
-│   ├── menu_main.py       # Menú interactivo
+│   ├── menu_main.py       # Menú interactivo principal
+│   ├── webserver.py       # Servidor web con tabla de manuales
 │   ├── html_translator.py # Traductor HTML
 │   ├── docx_converter.py  # Conversor DOCX
 │   ├── html_to_docx.py    # Procesamiento HTML→DOCX
 │   ├── toc_handler.py     # Manejo de TOC e índices
-│   ├── languages_config.py# Configuración de idiomas
+│   ├── config.py          # Configuración de idiomas y sistema
+│   ├── languages_config.py# Configuración de idiomas (legacy)
 │   └── system_config.py   # Configuración del sistema
 │
 ├── original/              # Manuales originales
@@ -100,7 +103,7 @@ brew install pandoc wkhtmltopdf
 ### Iniciar el sistema
 
 ```bash
-cd ~/tmp/traductor_manuales
+cd ~/desarrollos/traductor_manuales
 python3 traductor.py
 ```
 
@@ -119,6 +122,7 @@ El sistema presenta un menú interactivo con:
 2. **Generar DOCX + PDF**: Crea DOCX y PDF desde HTML traducido
 3. **Proceso completo**: Traduce + genera DOCX + PDF automáticamente
 4. **Operaciones masivas**: Para múltiples idiomas
+5. **Webserver**: Navegar manuales desde interfaz web (`http://localhost:8080`)
 
 ### Uso desde línea de comandos
 
@@ -131,6 +135,9 @@ python3 scripts/docx_converter.py --lang fr --manual open_aula_back
 
 # Forzar regeneración
 python3 scripts/html_translator.py --lang pt --manual open_aula_front --force
+
+# Iniciar webserver independiente
+python3 scripts/webserver.py
 ```
 
 ## Características
@@ -162,6 +169,14 @@ python3 scripts/html_translator.py --lang pt --manual open_aula_front --force
 - **Confirmaciones inteligentes** para operaciones costosas
 - **Progreso en tiempo real** con estimaciones
 - **Detección automática** de lo que falta
+
+### Webserver Integrado
+- **Tabla HTML interactiva** con todos los manuales e idiomas
+- **Enlaces directos** a archivos HTML, DOCX y PDF
+- **Navegación visual** con estado de completitud
+- **Servidor desde directorio raíz** para acceso completo
+- **Interfaz responsive** con diseño moderno
+- **Encender/Apagar desde menú principal**
 
 ## Flujo de Trabajo Típico
 
@@ -210,22 +225,25 @@ output/{idioma_legible}/open_aula_{tipo}_{codigo}/
 **Ejemplos actuales:**
 - `output/ingles/open_aula_front_en/docx/manual_aula_front_en.docx` (24MB)
 - `output/ingles/open_aula_front_en/pdf/manual_aula_front_en.pdf` (17MB)
-- `output/italiano/open_aula_front_it/docx/manual_aula_front_it.docx` (24MB)
-- `output/italiano/open_aula_front_it/pdf/manual_aula_front_it.pdf` (17MB)
+- `output/ingles/open_aula_back_en/docx/manual_aula_back_en.docx` (24MB)
+- `output/ingles/open_aula_back_en/pdf/manual_aula_back_en.pdf` (17MB)
+- `output/frances/open_aula_front_fr/` (HTML completo)
+- `output/guarani/open_aula_front_gn/` (HTML completo)
+- Y múltiples traducciones más disponibles en 12 idiomas
 
 ## Estado Actual
 
 ### ✅ Completado:
 - 🇪🇸 **Español**: Manual de usuario original (`open_aula_front_es`)
-- 🇺🇸 **Inglés**: Manual de usuario completo (HTML + DOCX optimizado)
+- 🇪🇸 **Español**: Manual de administración original (`open_aula_back_es`)
+- 🇺🇸 **Inglés**: Manual de usuario completo (HTML + DOCX + PDF)
+- 🇺🇸 **Inglés**: Manual de administración completo (HTML + DOCX + PDF)
 
-### 📁 Disponible para traducir:
-- 🇪🇸 **Español**: Manual de administración (`open_aula_back_es`)
-
-### 🌍 Idiomas configurados:
+### 🌍 Traducciones parciales disponibles:
 - 🇵🇹 Portugués, 🇫🇷 Francés, 🇮🇹 Italiano, 🇩🇪 Alemán
 - 🇳🇱 Neerlandés, 🏴 Catalán, 🏴 Euskera, 🏴 Gallego
 - 🇩🇰 Danés, 🇸🇪 Sueco, 🇵🇾 Guaraní
+
 
 ## Monitoreo y Caché
 
@@ -254,7 +272,7 @@ pip install --upgrade requests beautifulsoup4 python-docx lxml
 ## Desarrollo
 
 ### Agregar nuevo idioma
-1. Editar `scripts/languages_config.py`
+1. Editar `scripts/config.py` (o `scripts/languages_config.py` legacy)
 2. Agregar entrada en diccionario `LANGUAGES`
 3. Incluir `output_dir` y códigos apropiados
 4. Los directorios se crean automáticamente
@@ -262,11 +280,11 @@ pip install --upgrade requests beautifulsoup4 python-docx lxml
 ### Personalizar traducciones
 - Modificar prompts en `scripts/html_translator.py`
 - Ajustar configuración en `scripts/system_config.py`
-- Agregar particularidades en `scripts/languages_config.py`
+- Agregar particularidades en `scripts/config.py`
 
 ### Agregar nuevo tipo de manual
 1. Colocar archivos fuente en `original/nombre_manual_es/`
-2. Actualizar `MANUALS` en `scripts/languages_config.py`
+2. Actualizar `MANUALS` en `scripts/config.py`
 3. El sistema detectará automáticamente el nuevo manual
 
 ---
