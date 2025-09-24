@@ -3,6 +3,10 @@
 Convertidor HTML español a DOCX - Con enlaces internos REALES funcionando
 """
 from pathlib import Path
+
+# Definir rutas base del proyecto
+BASE_DIR = Path(__file__).parent
+PROJECT_ROOT = BASE_DIR.parent
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
@@ -99,7 +103,7 @@ class DOCXProgressDisplay:
         print(f"\n✅ DOCX generado: {Path(output_file).name}{file_size}")
         print(f"   📊 Procesadas: {processed_files}/{total_files} páginas en {elapsed:.1f}s")
 
-def spanish_html_with_real_links(html_dir, output_docx, manual_name="manual", lang_code="es"):
+def spanish_html_with_real_links(html_dir, output_docx, manual_name="manual", lang_code="es", manual_type="open_aula_back"):
     """Convertir HTML español a DOCX con enlaces internos REALES"""
 
     html_path = Path(html_dir)
@@ -126,7 +130,7 @@ def spanish_html_with_real_links(html_dir, output_docx, manual_name="manual", la
 
     # Cargar estilos CSS
     progress.show_step("Cargando estilos CSS")
-    css_styles = load_css_styles_from_spanish()
+    css_styles = load_css_styles_from_spanish(manual_type)
     logger.log_step(f"CSS_STYLES_LOADED: {len(css_styles)} classes")
 
     # CREAR PÁGINA DE TÍTULO Y ÍNDICE
@@ -325,11 +329,13 @@ def add_run_with_font(paragraph, text=""):
     run.font.name = 'Calibri'
     return run
 
-def load_css_styles_from_spanish():
+def load_css_styles_from_spanish(manual_type='open_aula_back'):
     """Cargar estilos CSS"""
     css_styles = {}
 
-    css_file = Path("/home/sebos/tmp/manuales/html_v10/css/hnd.content.css")
+    # Determinar directorio source según el tipo de manual
+    manual_dir = f"{manual_type}_es"
+    css_file = PROJECT_ROOT / "original" / manual_dir / "html" / "css" / "hnd.content.css"
     if css_file.exists():
         try:
             with open(css_file, 'r', encoding='utf-8') as f:
@@ -397,12 +403,14 @@ def clean_bookmark_name(filename):
         name = 'section_' + name
     return name or 'unknown'
 
-def parse_html_toc_structure():
+def parse_html_toc_structure(manual_type='open_aula_back'):
     """Parsear la estructura jerárquica del TOC HTML"""
     from bs4 import BeautifulSoup
 
     try:
-        index_path = Path("/home/sebos/tmp/manuales/html_v10/index.html")
+        # Determinar directorio source según el tipo de manual
+        manual_dir = f"{manual_type}_es"
+        index_path = PROJECT_ROOT / "original" / manual_dir / "html" / "index.html"
         with open(index_path, 'r', encoding='utf-8') as f:
             content = f.read()
 
@@ -1147,8 +1155,12 @@ def verify_real_links(docx_path):
         return False
 
 if __name__ == "__main__":
-    html_dir = Path("/home/sebos/tmp/manuales/html_v10")
-    output_docx = Path("/home/sebos/tmp/manuales/manual_spanish_final.docx")
+    # Por defecto, usar manual back, pero se puede cambiar
+    manual_type = 'open_aula_back'  # o 'open_aula_front'
+    manual_dir = f"{manual_type}_es"
+
+    html_dir = PROJECT_ROOT / "original" / manual_dir / "html"
+    output_docx = PROJECT_ROOT / f"manual_{manual_type}_final.docx"
 
     print("🔗 CONVERTIDOR ESPAÑOL - MANUAL FINAL COMPLETO")
     print("=" * 60)

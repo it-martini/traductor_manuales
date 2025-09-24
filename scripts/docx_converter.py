@@ -7,6 +7,10 @@ Versión adaptada de spanish_converter_real_links.py para soporte multi-idioma
 import sys
 from pathlib import Path
 
+# Definir rutas base del proyecto
+BASE_DIR = Path(__file__).parent
+PROJECT_ROOT = BASE_DIR.parent
+
 # Agregar directorios al path
 sys.path.append(str(Path(__file__).parent))
 
@@ -577,7 +581,7 @@ td, th {
 
                 # Paso 3: PDF con wkhtmltopdf patched
                 print("   3️⃣ Generando PDF...")
-                wkhtmltopdf = Path('/home/sebos/tmp/traductor_manuales/bin/wkhtmltopdf_patched')
+                wkhtmltopdf = PROJECT_ROOT / 'bin' / 'wkhtmltopdf_patched'
 
                 if not wkhtmltopdf.exists():
                     return False, None, "wkhtmltopdf patched no encontrado"
@@ -784,10 +788,13 @@ td, th {
         # Determinar tipo de manual para el nombre del archivo
         if 'front' in self.manual_name:
             manual_type = 'aula_front'
+            manual_type_full = 'open_aula_front'
         elif 'back' in self.manual_name:
             manual_type = 'aula_back'
+            manual_type_full = 'open_aula_back'
         else:
             manual_type = 'aula_front'  # default
+            manual_type_full = 'open_aula_front'
 
         output_file = docx_output_dir / f"manual_{manual_type}_{lang_code}.docx"
 
@@ -823,7 +830,7 @@ td, th {
 
             # Cargar estilos CSS
             progress.show_step("Cargando estilos CSS")
-            css_styles = load_css_styles_from_spanish()
+            css_styles = load_css_styles_from_spanish(manual_type_full)
             logger.log_step(f"CSS_STYLES_LOADED: {len(css_styles)} classes")
 
             # Aplicar parche de traducciones antes de crear la página de título
