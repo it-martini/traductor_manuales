@@ -948,73 +948,60 @@ class MainMenu:
             print(f"❌ Error eliminando caché: {e}")
 
     def webserver_menu(self):
-        """Menú para manejar el webserver"""
-        try:
-            from webserver import get_webserver_status, start_webserver, stop_webserver, is_webserver_running
-        except ImportError:
-            print("❌ Error: No se pudo importar el módulo webserver")
-            input("\nPresiona Enter para continuar...")
-            return
-
+        """Menú simplificado para el webserver"""
         while True:
             print("\n🌐 GESTIÓN DEL WEBSERVER")
             print("═" * 40)
 
-            # Obtener estado actual
-            status = get_webserver_status()
+            # Verificar si hay procesos python en puerto 8080
+            import subprocess
+            try:
+                result = subprocess.run(['netstat', '-tulpn'], capture_output=True, text=True)
+                is_running = ':8080' in result.stdout and 'python' in result.stdout
+            except:
+                is_running = False
 
-            if status['running']:
-                print(f"✅ Estado: ACTIVO")
-                print(f"🌍 URL: {status['url']}")
-                print(f"📁 Sirviendo: {status['directory']}")
+            if is_running:
+                print("✅ Estado: ACTIVO")
+                print("🌍 URL: http://localhost:8080")
             else:
                 print("🔴 Estado: INACTIVO")
-                print(f"📁 Directorio configurado: {status['directory']}")
+
+            print(f"📁 Directorio: {OUTPUT_DIR}")
 
             print("\n🔧 OPCIONES:")
             print("┌" + "─" * 38 + "┐")
 
-            if status['running']:
+            if is_running:
                 print("│ [1] Abrir en navegador              │")
-                print("│ [2] Mostrar información detallada   │")
-                print("│ [3] 🔴 Detener webserver            │")
+                print("│ [2] 🔴 Detener webserver            │")
             else:
                 print("│ [1] 🟢 Iniciar webserver            │")
-                print("│ [2] Configurar puerto               │")
 
             print("│                                     │")
             print("│ [0] Volver al menú principal        │")
             print("└" + "─" * 38 + "┘")
             print()
 
-            if status['running']:
-                choice = self.get_user_choice("Selección", range(0, 4))
-            else:
-                choice = self.get_user_choice("Selección", range(0, 3))
+            max_choice = 3 if is_running else 2
+            choice = self.get_user_choice("Selección", range(0, max_choice))
 
             if choice == 0:
                 break
             elif choice == 1:
-                if status['running']:
-                    self._open_webserver_in_browser(status['url'])
+                if is_running:
+                    self._open_webserver_in_browser("http://localhost:8080")
                 else:
-                    self._start_webserver()
-            elif choice == 2:
-                if status['running']:
-                    self._show_webserver_details()
-                else:
-                    self._configure_webserver_port()
-            elif choice == 3 and status['running']:
-                self._stop_webserver()
+                    self._start_webserver_simple()
+            elif choice == 2 and is_running:
+                self._stop_webserver_simple()
 
-    def _start_webserver(self):
-        """Inicia el webserver"""
+    def _start_webserver_simple(self):
+        """Inicia el webserver simple"""
         print("\n🚀 INICIAR WEBSERVER")
         print("─" * 20)
 
         try:
-            from webserver import start_webserver
-
             # Verificar que existe el directorio de salida
             if not OUTPUT_DIR.exists():
                 print(f"⚠️ El directorio de salida no existe: {OUTPUT_DIR}")
@@ -1022,28 +1009,46 @@ class MainMenu:
                 input("\nPresiona Enter para continuar...")
                 return
 
-            print("⏳ Iniciando servidor web...")
-            success = start_webserver()
+            # Ejecutar el servidor simple en background
+            import subprocess
+            import os
 
-            if success:
+            print("⏳ Iniciando servidor web...")
+
+            # Cambiar al directorio del proyecto
+            script_path = os.path.join(os.path.dirname(__file__), 'webserver.py')
+
+            # Ejecutar en background
+            process = subprocess.Popen([
+                'python3', script_path
+            ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            # Esperar un momento para que inicie
+            import time
+            time.sleep(2)
+
+            # Verificar si está corriendo
+            if process.poll() is None:
                 print("\n🎉 ¡Webserver iniciado exitosamente!")
-                print("🌍 Tu navegador puede acceder a los manuales traducidos")
+                print("🌍 URL: http://localhost:8080")
+                print("📁 Navegador de archivos disponible")
 
                 # Preguntar si abrir en navegador
                 response = input("\n¿Abrir en el navegador? (S/n): ").lower()
                 if response in ['', 's', 'si', 'y', 'yes']:
                     self._open_webserver_in_browser("http://localhost:8080")
             else:
+                stdout, stderr = process.communicate()
                 print("❌ No se pudo iniciar el webserver")
-                print("💡 Verifica que el puerto 8080 esté libre")
+                print(f"Error: {stderr.decode()}")
 
         except Exception as e:
             print(f"❌ Error inesperado: {e}")
 
         input("\nPresiona Enter para continuar...")
 
-    def _stop_webserver(self):
-        """Detiene el webserver"""
+    def _stop_webserver_simple(self):
+        """Detiene el webserver simple"""
         print("\n🛑 DETENER WEBSERVER")
         print("─" * 20)
 
@@ -1054,15 +1059,33 @@ class MainMenu:
             return
 
         try:
-            from webserver import stop_webserver
+            import subprocess
 
             print("⏳ Deteniendo servidor web...")
-            success = stop_webserver()
 
-            if success:
+            # Buscar y matar procesos python que usen puerto 8080
+            try:
+                result = subprocess.run(['netstat', '-tulpn'], capture_output=True, text=True)
+                lines = result.stdout.split('\n')
+
+                for line in lines:
+                    if ':8080' in line and 'python' in line:
+                        # Extraer PID
+                        parts = line.split()
+                        if len(parts) > 6:
+                            pid_info = parts[6]  # formato: PID/process_name
+                            if '/' in pid_info:
+                                pid = pid_info.split('/')[0]
+                                subprocess.run(['kill', pid])
+                                print(f"✅ Proceso {pid} terminado")
+
                 print("✅ Webserver detenido exitosamente")
-            else:
-                print("⚠️ El webserver ya estaba detenido o hubo un problema")
+
+            except Exception as e:
+                print(f"⚠️ Error buscando procesos: {e}")
+                # Método alternativo
+                subprocess.run(['pkill', '-f', 'webserver.py'], stderr=subprocess.DEVNULL)
+                print("✅ Intentó detener webserver con pkill")
 
         except Exception as e:
             print(f"❌ Error inesperado: {e}")
