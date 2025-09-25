@@ -652,6 +652,40 @@ class HTMLTranslator:
             if script.string and re.search(spanish_pdf_pattern, script.string):
                 script.string = re.sub(spanish_pdf_pattern, replacement_pdf, script.string)
 
+    def fix_pdf_links_in_json(self, json_data, target_lang):
+        """Corrige enlaces PDF en datos JSON como _toc.json"""
+        import re
+
+        # Determinar el tipo de manual basado en self.manual_name
+        manual_type = getattr(self, 'manual_name', 'front')
+
+        if 'front' in manual_type:
+            manual_suffix = 'front'
+        elif 'back' in manual_type:
+            manual_suffix = 'back'
+        else:
+            manual_suffix = 'front'  # default
+
+        # Patrón para identificar enlaces PDF españoles
+        spanish_pdf_pattern = f'manual_aula_{manual_suffix}_es\\.pdf'
+        replacement_pdf = f'manual_aula_{manual_suffix}_{target_lang}.pdf'
+
+        pdf_links_fixed = 0
+
+        # Procesar cada elemento del array JSON
+        for item in json_data:
+            if isinstance(item, dict) and 'a_attr' in item:
+                if isinstance(item['a_attr'], dict) and 'href' in item['a_attr']:
+                    href = item['a_attr']['href']
+                    if re.search(spanish_pdf_pattern, href):
+                        new_href = re.sub(spanish_pdf_pattern, replacement_pdf, href)
+                        item['a_attr']['href'] = new_href
+                        pdf_links_fixed += 1
+                        print(f"      🔗 JSON PDF corregido: {new_href}")
+
+        if pdf_links_fixed > 0:
+            print(f"      ✅ {pdf_links_fixed} enlaces PDF corregidos en JSON")
+
     def translate_with_claude(self, text, target_lang, context="", element_type="text", max_retries=3):
         """Traduce texto usando Claude API con reintentos robustos"""
         cache_key = self.get_cache_key(text, target_lang)
@@ -1029,6 +1063,9 @@ Traducción directa:"""
 
                         # Aplicar traducción
                         item['text'] = translated_text
+
+            # Corregir enlaces PDF en el JSON después de traducir
+            self.fix_pdf_links_in_json(data, target_lang)
 
             # Guardar archivo JSON traducido
             target_file.parent.mkdir(parents=True, exist_ok=True)
