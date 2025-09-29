@@ -686,9 +686,38 @@ class HTMLTranslator:
         if pdf_links_fixed > 0:
             print(f"      ✅ {pdf_links_fixed} enlaces PDF corregidos en JSON")
 
+    def protect_email_addresses(self, text):
+        """Protege direcciones de email reemplazándolas con marcadores únicos"""
+        import re
+
+        # Patrón para detectar emails
+        email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+
+        emails_found = []
+        def replace_email(match):
+            email = match.group(0)
+            placeholder = f"__EMAIL_PLACEHOLDER_{len(emails_found)}__"
+            emails_found.append(email)
+            return placeholder
+
+        protected_text = re.sub(email_pattern, replace_email, text)
+        return protected_text, emails_found
+
+    def restore_email_addresses(self, text, emails_list):
+        """Restaura las direcciones de email protegidas"""
+        for i, email in enumerate(emails_list):
+            placeholder = f"__EMAIL_PLACEHOLDER_{i}__"
+            text = text.replace(placeholder, email)
+        return text
+
     def translate_with_claude(self, text, target_lang, context="", element_type="text", max_retries=3):
         """Traduce texto usando Claude API con reintentos robustos"""
-        cache_key = self.get_cache_key(text, target_lang)
+
+        # Proteger direcciones de email antes de cualquier procesamiento
+        protected_text, emails_found = self.protect_email_addresses(text)
+
+        # Usar texto protegido para caché y traducción
+        cache_key = self.get_cache_key(protected_text, target_lang)
 
         # Verificar caché (puede tener formato antiguo o nuevo)
         if cache_key in self.cache:
@@ -701,11 +730,14 @@ class HTMLTranslator:
             else:
                 translated = cached_value  # Formato antiguo
 
+            # Restaurar emails en traducción del caché
+            translated = self.restore_email_addresses(translated, emails_found)
+
             # Log cache hit
             if self.logger:
                 self.logger.log_translation(text, translated, "CACHE")
 
-            return translated
+            return translated, 0.0  # Cost 0 para traducciones desde caché
 
         if not self.api_key:
             raise ValueError("No se encontró API key de Claude")
@@ -721,7 +753,7 @@ class HTMLTranslator:
         prompt = f"""IMPORTANTE: Responde ÚNICAMENTE con el texto traducido directo. NO incluyas explicaciones, traducciones adicionales, o formato instructivo.
 
 Traduce este texto del español al {target_lang_name}:
-"{text}"
+"{protected_text}"
 
 Reglas críticas:
 1. Respuesta DIRECTA: solo el texto traducido
@@ -731,6 +763,7 @@ Reglas críticas:
 5. Mantén significado exacto y tono profesional
 6. Preserva tags HTML tal como están
 7. NO traduzcas nombres propios, URLs o códigos técnicos
+8. PRESERVA EXACTAMENTE cualquier __EMAIL_PLACEHOLDER_X__ tal como aparece
 
 {cultural_instructions}
 
@@ -785,6 +818,9 @@ Traducción directa:"""
 
                     # Limpiar la respuesta - remover instrucciones técnicas
                     translated_text = self._clean_translation_response(translated_text)
+
+                    # Restaurar direcciones de email en la traducción
+                    translated_text = self.restore_email_addresses(translated_text, emails_found)
 
                     # Validar que la traducción no esté corrupta
                     self._validate_translation(text, translated_text, target_lang)
@@ -1302,7 +1338,7 @@ Traducción directa:"""
             if self.progress:
                 self.progress.show_file_start(source_file.name, file_num, len(elements))
             else:
-                print(f"      📝 {len(elements)} elementos a traducir")
+                print(f"      📝 {len(elements)} elementos a traducir", end="", flush=True)
 
             # Traducir elementos
             translated_count = 0
@@ -1331,13 +1367,15 @@ Traducción directa:"""
                     if self.progress:
                         self.progress.show_element_progress(i, len(elements), cache_hits, api_calls, element['text'], translated_text)
                     else:
-                        print(f"      ⚡ [{i}/{len(elements)}] Desde caché")
+                        # Mostrar progreso simple con punto
+                        print(".", end="", flush=True)
                 else:
                     # Mostrar progreso antes de traducir
                     if self.progress:
                         self.progress.show_element_progress(i, len(elements), cache_hits, api_calls, element['text'])
                     else:
-                        print(f"      🔄 [{i}/{len(elements)}] Traduciendo...")
+                        # Mostrar progreso con asterisco para API calls
+                        print("*", end="", flush=True)
 
                     translated_text, cost = self.translate_with_claude(
                         element['text'],
@@ -1388,7 +1426,7 @@ Traducción directa:"""
                 self.progress.show_file_complete(cache_hits, api_calls, duration_str, total_cost)
             else:
                 cost_str = f", ${total_cost:.4f}" if total_cost > 0 else ""
-                print(f"      ✅ Traducido: {api_calls} nuevos, {cache_hits} del caché{cost_str}")
+                print(f"\n      ✅ {api_calls} nuevos, {cache_hits} caché{cost_str}")
 
             # Guardar metadata del archivo traducido
             self.save_file_metadata(source_file, target_file, target_lang)

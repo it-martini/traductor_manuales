@@ -219,7 +219,7 @@ class TOCHandler:
                 bookmark_name = clean_bookmark_name(href)
                 create_real_internal_hyperlink(index_para, title, bookmark_name, {}, [])
 
-                print(f"     📋 Índice: {'  ' * level}{number_str} {title} → {bookmark_name}")
+                # print(f"     📋 Índice: {'  ' * level}{number_str} {title} → {bookmark_name}")  # Simplificado
 
             # Procesar hijos recursivamente
             if item.get('children'):

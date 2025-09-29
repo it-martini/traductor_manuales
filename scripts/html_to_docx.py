@@ -647,7 +647,7 @@ def add_heading_with_real_bookmark(doc, title, filename, bookmark_mapping, bookm
         p.insert(0, bookmark_start)
         p.append(bookmark_end)
 
-        print(f"      🔖 Bookmark REAL creado: {bookmark_name} (ID: {bookmark_id_counter})")
+        # print(f"      🔖 Bookmark REAL creado: {bookmark_name} (ID: {bookmark_id_counter})")  # Simplificado
 
         return heading, bookmark_id_counter + 1
 
@@ -850,13 +850,15 @@ def process_link_with_real_hyperlink(paragraph, link_elem, css_styles, bookmark_
         target_bookmark = bookmark_mapping.get(href, clean_bookmark_name(href))
         success = create_real_internal_hyperlink(paragraph, link_text, target_bookmark, css_styles, css_class)
         if success:
-            print(f"         🔗 Enlace REAL: '{link_text}' → {target_bookmark}")
+            # print(f"         🔗 Enlace REAL: '{link_text}' → {target_bookmark}")  # Simplificado
+            pass
         return success
     else:
         # Es enlace externo - crear HYPERLINK XML REAL
         success = create_real_external_hyperlink(paragraph, link_text, href, css_styles, css_class)
         if success:
-            print(f"         🌐 Enlace externo REAL: '{link_text}' → {href}")
+            # print(f"         🌐 Enlace externo REAL: '{link_text}' → {href}")  # Simplificado
+            pass
         return success
 
 def create_real_internal_hyperlink(paragraph, text, bookmark_name, css_styles, css_class):
@@ -1084,31 +1086,31 @@ def _is_inline_image(img_elem, inline_context, base_path):
                 from PIL import Image
                 with Image.open(img_path) as img:
                     width, height = img.size
-                    print(f"      📏 {src}: {width}x{height}px")
+                    # print(f"      📏 {src}: {width}x{height}px")  # Simplificado
 
                     # Considerar inline si es pequeña en dimensiones
                     # Típicamente botones/iconos son <100px en alguna dimensión
                     if width <= 100 or height <= 100:
-                        print(f"         → INLINE (pequeña: ≤100px)")
+                        # print(f"         → INLINE (pequeña: ≤100px)")  # Simplificado
                         return True
 
                     # Si es grande (>300px en ambas), definitivamente standalone
                     if width > 300 and height > 200:
-                        print(f"         → STANDALONE (grande: {width}x{height} > 300x200)")
+                        # print(f"         → STANDALONE (grande: {width}x{height} > 300x200)")  # Simplificado
                         return False
 
                     # Si está en contexto inline, verificar ratios especiales
                     if inline_context:
                         # Si es muy ancha pero baja (banner/barra), puede ser inline
                         if height <= 50 and width <= 400:
-                            print(f"         → INLINE (banner: {width}x{height})")
+                            # print(f"         → INLINE (banner: {width}x{height})")  # Simplificado
                             return True
                         # Si es muy alta pero estrecha (botón vertical), puede ser inline
                         if width <= 50 and height <= 200:
-                            print(f"         → INLINE (botón vertical: {width}x{height})")
+                            # print(f"         → INLINE (botón vertical: {width}x{height})")  # Simplificado
                             return True
 
-                    print(f"         → Continuando análisis...")
+                    # print(f"         → Continuando análisis...")  # Simplificado
 
             except Exception as e:
                 print(f"      ⚠️ Error verificando tamaño de {src}: {e}")

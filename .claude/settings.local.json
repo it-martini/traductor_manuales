@@ -20,7 +20,18 @@
       "Bash(./usr/local/bin/wkhtmltopdf:*)",
       "Bash(/home/sebos/tmp/traductor_manuales/bin/wkhtmltopdf_patched:*)",
       "Bash(temp_titulo_formato_fixed.html )",
-      "Bash(test_con_imagenes.pdf)"
+      "Bash(test_con_imagenes.pdf)",
+      "Bash(git log:*)",
+      "Bash(pkill:*)",
+      "Read(//home/sebos/desarrollos/traductor_helpndoc/**)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(cp:*)",
+      "Read(//home/sebos/desarrollos/**)",
+      "Bash(env)",
+      "Read(//home/sebos/**)",
+      "Bash(/home/sebos/.claude/statusline.sh:*)"
     ],
     "deny": [],
     "ask": []
