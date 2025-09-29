@@ -32,7 +32,7 @@ traductor_manuales/
 │   └── ingles/            # Inglés completado
 │       └── open_aula_front_en/ # Manual de usuario en inglés
 │
-└── cache/                 # Caché de traducciones (500KB)
+└── cache/                 # Caché de traducciones (26MB)
     └── translations.json  # Caché persistente
 ```
 
@@ -233,16 +233,22 @@ output/{idioma_legible}/open_aula_{tipo}_{codigo}/
 
 ## Estado Actual
 
-### ✅ Completado:
-- 🇪🇸 **Español**: Manual de usuario original (`open_aula_front_es`)
-- 🇪🇸 **Español**: Manual de administración original (`open_aula_back_es`)
-- 🇺🇸 **Inglés**: Manual de usuario completo (HTML + DOCX + PDF)
-- 🇺🇸 **Inglés**: Manual de administración completo (HTML + DOCX + PDF)
+### ✅ Totalmente completado (HTML + DOCX + PDF):
+- 🇪🇸 **Español** (original): Front + Back
+- 🇺🇸 **Inglés**: Front + Back
+- 🇵🇹 **Portugués**: Front + Back
+- 🇫🇷 **Francés**: Front + Back
+- 🇮🇹 **Italiano**: Front + Back
+- 🇩🇪 **Alemán**: Front + Back
+- 🇳🇱 **Neerlandés**: Front + Back
+- 🏴 **Catalán**: Front + Back
+- 🏴 **Euskera**: Front + Back
+- 🏴 **Gallego**: Front + Back
+- 🇩🇰 **Danés**: Front + Back
+- 🇸🇪 **Sueco**: Front + Back
+- 🇵🇾 **Guaraní**: Front + Back
 
-### 🌍 Traducciones parciales disponibles:
-- 🇵🇹 Portugués, 🇫🇷 Francés, 🇮🇹 Italiano, 🇩🇪 Alemán
-- 🇳🇱 Neerlandés, 🏴 Catalán, 🏴 Euskera, 🏴 Gallego
-- 🇩🇰 Danés, 🇸🇪 Sueco, 🇵🇾 Guaraní
+**Total: 13 idiomas × 2 manuales = 26 manuales completos**
 
 
 ## Monitoreo y Caché
